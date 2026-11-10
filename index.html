@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Penentu Kelulusan</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd6e7, #f7a8c8);
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(200, 80, 130, 0.2);
+        }
+
+        h1 {
+            color: #d94f91;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            color: #c34c85;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #f5b4d0;
+            border-radius: 12px;
+            outline: none;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        input:focus {
+            border-color: #dc68a2;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: #e96da9;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #d94f91;
+            transform: scale(1.03);
+        }
+
+        .reset {
+            background: #f5b4d0;
+            color: #92345f;
+            margin-top: 10px;
+        }
+
+        .reset:hover {
+            background: #ee91bb;
+        }
+
+        #hasil {
+            margin-top: 22px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .lulus {
+            display: block !important;
+            background: #d9f8e5;
+            color: #21834a;
+        }
+
+        .tidak-lulus {
+            display: block !important;
+            background: #ffe0e5;
+            color: #d13e59;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #aaa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌸 Cek Kelulusan</h1>
+
+        <p class="subtitle">
+            Program Penentu Kelulusan Siswa
+        </p>
+
+        <label for="nama">Nama Siswa</label>
+        <input
+            type="text"
+            id="nama"
+            placeholder="Masukkan nama siswa"
+        >
+
+        <label for="nilai">Nilai Siswa</label>
+        <input
+            type="number"
+            id="nilai"
+            placeholder="Masukkan nilai (0-100)"
+            min="0"
+            max="100"
+        >
+
+        <button onclick="cekKelulusan()">
+            Cek Hasil Kelulusan
+        </button>
+
+        <div id="hasil"></div>
+
+        <button class="reset" onclick="resetForm()">
+            Reset
+        </button>
+
+        <p class="footer">
+            ✨ Semangat belajar dan raih prestasimu! ✨
+        </p>
+
+    </div>
+
+    <script>
+        function cekKelulusan() {
+
+            let nama = document.getElementById("nama").value;
+            let nilai = document.getElementById("nilai").value;
+            let hasil = document.getElementById("hasil");
+
+            if (nama.trim() === "" || nilai === "") {
+                alert("Silakan masukkan nama dan nilai siswa!");
+                return;
+            }
+
+            nilai = Number(nilai);
+
+            if (nilai < 0 || nilai > 100) {
+                alert("Nilai harus berada antara 0 sampai 100!");
+                return;
+            }
+
+            hasil.style.display = "block";
+
+            if (nilai > 88) {
+                hasil.className = "lulus";
+                hasil.innerHTML =
+                    "🎉 SELAMAT!<br>" +
+                    nama + "<br>" +
+                    "DINYATAKAN LULUS!<br>" +
+                    "Nilai: " + nilai;
+            } else {
+                hasil.className = "tidak-lulus";
+                hasil.innerHTML =
+                    "💗 MOHON MAAF<br>" +
+                    nama + "<br>" +
+                    "DINYATAKAN TIDAK LULUS<br>" +
+                    "Nilai: " + nilai;
+            }
+        }
+
+        function resetForm() {
+            document.getElementById("nama").value = "";
+            document.getElementById("nilai").value = "";
+
+            let hasil = document.getElementById("hasil");
+            hasil.style.display = "none";
+            hasil.innerHTML = "";
+            hasil.className = "";
+        }
+    </script>
+
+</body>
+</html>
